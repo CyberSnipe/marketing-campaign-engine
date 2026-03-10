@@ -1,6 +1,6 @@
 # README.md
 
-# 📌 Project Title
+# Project Title
 Marketing Campaign Engine
 
 # Project Description
