@@ -95,14 +95,6 @@ Tests cover:
 - Data visualization  
 - Integration with a full ERP system  
 
-# Grading Rubric Alignment
-Code Functionality – 30%  
-Code Quality & Organization – 20%  
-Concepts Coverage – 20%  
-Documentation – 15%  
-Creativity & Features – 10%  
-Presentation – 5%  
-
 # Author
 Joseph Bevels
 COP3045 – Python Programming  
