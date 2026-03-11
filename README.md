@@ -1,39 +1,15 @@
-# README.md
+# Marketing Campaign Engine
 
-# Project Title
-Marketing Campaign Engine
+The Marketing Campaign Engine is a modular Python application that simulates a single business process: triggering a marketing campaign and calculating how much inventory should be restocked based on projected demand. Users enter product information, and the system generates a restock recommendation including quantity and total cost. This project demonstrates multi‑module program design, JSON file handling, classes, functions, error handling, and automated testing. It is designed to show mastery of core programming concepts through a clean, well‑structured, and realistic business workflow.
 
-# Project Description
-The Marketing Campaign Engine is a modular Python application that simulates a single business process: triggering a marketing campaign and calculating how much inventory should be restocked based on projected demand. Users enter product information, and the system generates a restock recommendation including quantity and total cost.
+## Dependencies
 
-This project demonstrates multi‑module program design, JSON file handling, classes, functions, error handling, and automated testing.
-
-# Purpose
-This project was created as the Final Project for COP3045 – Programming II.  
-It is designed to show mastery of core programming concepts through a clean, well‑structured, and realistic business workflow.
-
-# How to Run
-
-## 1. Clone the Repository
-git clone https://github.com/<your-username>/marketing-campaign-engine.git
-cd marketing-campaign-engine
-
-## 2. Create and Activate Virtual Environment
-python -m venv .venv
-.venv\Scripts\activate
-
-## 3. Install Dependencies
-pip install -r requirements.txt
-
-## 4. Run the Application
-python main.py
-
-# Dependencies
 pytest
 
 Everything else uses the Python Standard Library.
 
-# Core Features
+### Core Features
+
 - Trigger Marketing Campaign  
 - Demand Projection Logic  
 - Restock Recommendation Output  
@@ -41,7 +17,7 @@ Everything else uses the Python Standard Library.
 - Input Validation & Error Handling  
 - Help / Documentation in CLI  
 
-# Code Organization
+#### Code Organization
 
 marketing_campaign_project/
 │
@@ -71,32 +47,51 @@ marketing_campaign_project/
       ├── merch_catalog.json
       └── restock_recommendations.json
 
+##### Testing
 
-# Testing
 pytest
 
 Tests cover:
+
 - Core business logic  
 - Edge cases  
 - Error scenarios  
 - JSON read/write behavior  
 
-# Presentation Requirements
+###### How to Run
+
+ 1. Clone the Repository
+git clone <https://github.com/cybersnipe/marketing-campaign-engine.git>
+cd marketing-campaign-engine
+
+ 2. Create and Activate Virtual Environment
+python -m venv .venv
+.venv\Scripts\activate
+
+ 3. Install Dependencies
+pip install -r requirements.txt
+
+ 4. Run the Application
+python main.py
+
+######## Presentation Requirements
+
 - 3–5 minute demo video  
 - Code walkthrough  
 - Architecture explanation  
 - Challenges and solutions  
 - Future improvement ideas  
 
-# Future Improvements
+########## Future Improvements
+
 - GUI interface  
 - SQL backend  
 - Batch processing  
 - Data visualization  
 - Integration with a full ERP system  
 
-# Author
+########### Author
+
 Joseph Bevels
 COP3045 – Python Programming  
 University of North Florida
-
