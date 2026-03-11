@@ -1,4 +1,5 @@
 # Marketing Campaign Engine
+Version: v0.1.0
 
 The Marketing Campaign Engine is a modular Python application that simulates a single business process: triggering a marketing campaign and calculating how much inventory should be restocked based on projected demand. Users enter product information, and the system generates a restock recommendation including quantity and total cost. This project demonstrates multi‑module program design, JSON file handling, classes, functions, error handling, and automated testing. It is designed to show mastery of core programming concepts through a clean, well‑structured, and realistic business workflow.
 
