@@ -1,19 +1,5 @@
 import json
-import configparser
-from pathlib import Path
-
-
-# ---------------------------------------------------------
-# Load Settings
-# ---------------------------------------------------------
-config = configparser.ConfigParser()
-config.read("settings.cfg")
-
-DATA_DIR = Path(config["paths"]["data_dir"])
-MERCH_CATALOG = Path(config["paths"]["merch_catalog"])
-RESTOCK_OUTPUT = Path(config["paths"]["restock_output"])
-DEFAULT_DEMAND_INCREASE = float(config["process"]["default_demand_increase"])
-DEBUG = config.getboolean("logging", "debug")
+from src.config import MERCH_CATALOG, RESTOCK_OUTPUT, DEFAULT_DEMAND_INCREASE
 
 
 # ---------------------------------------------------------
@@ -33,7 +19,7 @@ class MerchItem:
 # ---------------------------------------------------------
 # Persistence Layer
 # ---------------------------------------------------------
-class MerchRepository:
+class MerchRepository(MerchItem):
     """Loads merch data from JSON."""
 
     @staticmethod
@@ -81,10 +67,10 @@ class RestockRepository:
 # ---------------------------------------------------------
 class MarketingService:
     """Business logic for calculating restock needs."""
-
+    mer
     @staticmethod
     def calculate_restock(merch_item, demand_increase):
-        projected_demand = merch_item.current_stock * (1 + demand_increase)
+        projected_demand = merch_item * (1 + demand_increase)
         restock_qty = max(0, int(projected_demand - merch_item.current_stock))
         total_cost = restock_qty * merch_item.unit_cost
 

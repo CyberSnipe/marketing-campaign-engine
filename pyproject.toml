@@ -1,0 +1,59 @@
+[project]
+name = "marketing-campaign-engine"
+version = "0.1.0"
+description = "A modular Python application that simulates triggering a marketing campaign and generating inventory restock recommendations based on projected demand."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Joseph Bevels", email = "n00661116@unf.edu" }
+]
+license = { text = "Proprietary" }
+keywords = ["marketing", "campaign", "restock", "inventory", "erp", "modular"]
+
+dependencies = [
+    # All core functionality uses Python Standard Library only
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "black>=24.0",
+    "ruff>=0.4",
+    "ipykernel>=6.0",
+]
+
+[project.scripts]
+marketing-engine = "main:main"       
+
+# ====================== Build & Packaging ======================
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["marketing_campaign_engine*"]
+namespaces = false
+
+[tool.distutils.egg_info]
+egg_base = "."
+
+# ====================== Tool Configurations ======================
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "W", "UP", "RUF"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.black]
+line-length = 100
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --tb=short"
+testpaths = ["tests"]

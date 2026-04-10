@@ -1,36 +1,54 @@
-# Python virtual environment
+# Virtual Environments
 .venv/
 venv/
 env/
+ENV/
 
-# Byte-compiled / optimized / DLL files
+# Python cache
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 
-# VS Code settings
-.vscode/
+# Jupyter Notebook
+.ipynb_checkpoints/
 
-# Pytest cache
+# Data files (optional - only commit small sample files)
+*.csv
+*.xlsx
+*.json   # Uncomment if you want to track data files
+*.db
+*.sqlite3
+
+# Test artifacts
 .pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
 
-# Build / packaging
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+temp/
+tmp/
+
+# Build & packaging
 build/
 dist/
 *.egg-info/
-
-# Environment files
-.env
-*.env
-
-# macOS system files
-.DS_Store
-
-# Windows system files
-Thumbs.db
-
-# Local data files (optional — keep if you want to track data/)
-# Uncomment if you want to ignore generated output
-# data/restock_recommendations.json
+.eggs/
 
