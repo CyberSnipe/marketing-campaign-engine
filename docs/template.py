@@ -6,37 +6,48 @@ from src.config import MERCH_CATALOG, RESTOCK_OUTPUT, DEFAULT_DEMAND_INCREASE
 # Domain Model
 # ---------------------------------------------------------
 class MerchItem:
-    def __init__(self, merch_id, name, unit_cost, current_stock):
+    """Represents a single merchandise item in the catalog."""
+
+    def __init__(self, merch_id: str, name: str, unit_cost: float, current_stock: int, base_demand: int):
         self.merch_id = merch_id
         self.name = name
         self.unit_cost = unit_cost
         self.current_stock = current_stock
+        self.base_demand = base_demand
 
-    def __repr__(self):
-        return f"<MerchItem {self.merch_id}: {self.name}, stock={self.current_stock}>"
+    def __repr__(self) -> str:
+        return (
+            f"<MerchItem {self.merch_id}: {self.name}, "
+            f"stock={self.current_stock}, base_demand={self.base_demand}>"
+        )
 
 
 # ---------------------------------------------------------
 # Persistence Layer
 # ---------------------------------------------------------
-class MerchRepository(MerchItem):
+class MerchRepository:
     """Loads merch data from JSON."""
 
     @staticmethod
-    def load_merch_item(merch_id):
+    def load_merch_item(merch_id: str) -> MerchItem | None:
+        """Return a MerchItem for the given ID, or None if not found."""
         if not MERCH_CATALOG.exists():
-            raise FileNotFoundError("Merch catalog file not found.")
+            raise FileNotFoundError(f"Merch catalog file not found: {MERCH_CATALOG}")
 
-        with open(MERCH_CATALOG, "r") as f:
-            data = json.load(f)
+        try:
+            with MERCH_CATALOG.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"Invalid JSON in merch catalog: {exc}") from exc
 
         for item in data:
             if item["merch_id"] == merch_id:
                 return MerchItem(
                     merch_id=item["merch_id"],
                     name=item["name"],
-                    unit_cost=item["unit_cost"],
-                    current_stock=item["current_stock"]
+                    unit_cost=float(item["unit_cost"]),
+                    current_stock=int(item["current_stock"]),
+                    base_demand=int(item["base_demand"]),
                 )
 
         return None
@@ -46,19 +57,24 @@ class RestockRepository:
     """Saves restock recommendations to JSON."""
 
     @staticmethod
-    def save_recommendation(result_dict):
+    def save_recommendation(result_dict: dict) -> None:
+        """Append a single recommendation dict to the JSON output file."""
         RESTOCK_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 
-        # Load existing or create new list
         if RESTOCK_OUTPUT.exists():
-            with open(RESTOCK_OUTPUT, "r") as f:
-                data = json.load(f)
+            try:
+                with RESTOCK_OUTPUT.open("r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if not isinstance(data, list):
+                    data = []
+            except json.JSONDecodeError:
+                data = []
         else:
             data = []
 
         data.append(result_dict)
 
-        with open(RESTOCK_OUTPUT, "w") as f:
+        with RESTOCK_OUTPUT.open("w", encoding="utf-8") as f:
             json.dump(data, f, indent=4)
 
 
@@ -67,10 +83,16 @@ class RestockRepository:
 # ---------------------------------------------------------
 class MarketingService:
     """Business logic for calculating restock needs."""
-    mer
+
     @staticmethod
-    def calculate_restock(merch_item, demand_increase):
-        projected_demand = merch_item * (1 + demand_increase)
+    def calculate_restock(merch_item: MerchItem, demand_increase: float) -> dict:
+        """
+        Calculate restock quantity and total cost for a merch item.
+
+        projected_demand = base_demand * (1 + demand_increase)
+        restock_qty = max(0, projected_demand - current_stock)
+        """
+        projected_demand = merch_item.base_demand * (1 + demand_increase)
         restock_qty = max(0, int(projected_demand - merch_item.current_stock))
         total_cost = restock_qty * merch_item.unit_cost
 
@@ -79,17 +101,22 @@ class MarketingService:
             "name": merch_item.name,
             "restock_qty": restock_qty,
             "total_cost": round(total_cost, 2),
-            "demand_increase": demand_increase
+            "demand_increase": demand_increase,
         }
 
 
 # ---------------------------------------------------------
 # Process Function
 # ---------------------------------------------------------
-def trigger_marketing_campaign():
+def trigger_marketing_campaign() -> None:
+    """CLI flow: prompt user, run marketing logic, save and display results."""
     print("\n=== Trigger Marketing Campaign ===")
 
     merch_id = input("Enter merch ID: ").strip()
+    if not merch_id:
+        print("Merch ID is required.\n")
+        return
+
     demand_input = input(f"Expected demand increase (default {DEFAULT_DEMAND_INCREASE}): ").strip()
 
     if demand_input == "":
@@ -101,10 +128,14 @@ def trigger_marketing_campaign():
             print("Invalid demand increase. Using default.")
             demand_increase = DEFAULT_DEMAND_INCREASE
 
-    merch_item = MerchRepository.load_merch_item(merch_id)
+    try:
+        merch_item = MerchRepository.load_merch_item(merch_id)
+    except (FileNotFoundError, RuntimeError) as exc:
+        print(f"Error loading merch catalog: {exc}")
+        return
 
     if merch_item is None:
-        print("Merch item not found.")
+        print("Merch item not found.\n")
         return
 
     result = MarketingService.calculate_restock(merch_item, demand_increase)
@@ -120,7 +151,8 @@ def trigger_marketing_campaign():
 # ---------------------------------------------------------
 # CLI Menu
 # ---------------------------------------------------------
-def main():
+def main() -> None:
+    """Main CLI loop for the Marketing Campaign Engine."""
     while True:
         print("=== Marketing Campaign Engine ===")
         print("1. Trigger Marketing Campaign")
@@ -142,4 +174,3 @@ def main():
 # ---------------------------------------------------------
 if __name__ == "__main__":
     main()
-

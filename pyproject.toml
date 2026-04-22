@@ -1,7 +1,7 @@
 [project]
-name = "marketing-campaign-engine"
+name = "marketing-engine"
 version = "0.1.0"
-description = "A modular Python application that simulates triggering a marketing campaign and generating inventory restock recommendations based on projected demand."
+description = "Marketing Engine: Campaign projections and sales forecasting with GUI and analytics."
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [
@@ -32,7 +32,7 @@ package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["marketing_campaign_engine*"]
+include = ["marketing_engine*"]
 namespaces = false
 
 [tool.distutils.egg_info]
