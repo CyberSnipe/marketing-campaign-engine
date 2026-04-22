@@ -2,7 +2,7 @@ import configparser
 from pathlib import Path
 
 # ====================== BASE_DIR ======================
-BASE_DIR = Path(__file__).parent.resolve()
+BASE_DIR = Path(__file__).resolve().parents[1]
 CONFIG_PATH = BASE_DIR / "settings.cfg"
 
 # ====================== Load Configuration ======================
