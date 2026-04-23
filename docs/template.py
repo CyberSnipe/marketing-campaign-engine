@@ -1,5 +1,5 @@
 import json
-from src.config import MERCH_CATALOG, RESTOCK_OUTPUT, DEFAULT_DEMAND_INCREASE
+from src.marketing_engine.config import MERCH_CATALOG, RESTOCK_OUTPUT, DEFAULT_DEMAND_INCREASE
 
 
 # ---------------------------------------------------------

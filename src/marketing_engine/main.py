@@ -1,16 +1,17 @@
 # Main Entry Point for the Marketing Engine
+# main.py
+
+"""
+Entry point for the Marketing Engine application.
+Launches the Tkinter GUI.
+"""
+from marketing_engine.gui.app import MarketingEngineApp
 
 def main():
-    print("\nWelcome to the Marketing Engine!\n")
-    # Initialize components, load data, and start the engine
-    # For example:
-    # data_loader = DataLoader()
-    # campaign_manager = CampaignManager()
-    # analytics_engine = AnalyticsEngine()
-    # data_loader.load_data()
-    # campaign_manager.create_campaigns()
-    # analytics_engine.run_analysis()
-    
+    app = MarketingEngineApp()
+    app.mainloop()
+
+
 if __name__ == "__main__":
     main()
     
