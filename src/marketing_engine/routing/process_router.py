@@ -1,14 +1,14 @@
 # routing/process_router.py
 
-from persistence.merch_repository import MerchRepository
-from persistence.restock_repository import RestockRepository
+from marketing_engine.persistence.merch_repository import MerchRepository
+from marketing_engine.persistence.restock_repository import RestockRepository
 
-from services.forcasting_service import ForecastingService
-from services.marketing_service import MarketingService
-from services.analytics_service import AnalyticsService
-from services.batch_service import BatchService
+from marketing_engine.services.forcasting_service import ForecastingService
+from marketing_engine.services.marketing_service import MarketingService
+from marketing_engine.services.analytics_service import AnalyticsService
+from marketing_engine.services.batch_service import BatchService
 
-from src.marketing_engine.config import (
+from ..config import (
     MA_WINDOW,
     WMA_WEIGHTS,
     ES_ALPHA,

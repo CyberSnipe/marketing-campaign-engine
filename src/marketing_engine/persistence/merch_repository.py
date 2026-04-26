@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from marketing_engine.domain.merch_item import MerchItem
-from marketing_engine.config import MERCH_CATALOG
+from ..config import MERCH_CATALOG
 
 
 class MerchRepository:
